@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>Rent vs Buy Calculator</title>
+  <link href="style.css" rel="stylesheet" type="text/css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/water.css@2/out/water.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+  <h1>Rent vs Buy Opportunity Cost Calculator</h1>
+  <p>
+    This is an opportunity cost calculator. It assumes that both the renter and the buyer spend the exact same amount of
+    money and compares the opportunity cost of buying vs renting.
+    The comparison is input equated based on the annualised cost of ownership, so the rental investment amounts are
+    calculated as annual cost of ownership minus rent.
+    <br><br>
+    Here are a few other things to consider:
+  </p>
+  <ul>
+    <li>Owning ties up most/all wealth in a single asset and single asset class.</li>
+    <li>Owning removes all liquidity.</li>
+    <li>Investing in USA based index tracker (S&P 500) hedges against local currency devaluation.</li>
+    <li>This calculator doesn't take into account the cost, time, and effort of buying or selling a property.</li>
+    <li>This does take into consideration renovations, averaged into the maintenance percentage.</li>
+    <li>A renter will always pay rent (this is factored in), whereas once the homeloan is paid off, the homeowner will
+      only need to pay maintenance, insurance, rates/taxes, levies (if applicable), and management fees (if applicable).</li>
+    <li>Defaults are based on my apartment in Tamboerskloof, Cape Town.</li>
+  </ul>
+  <div>
+    Duration of simulation (years): <input type="number" id="duration" value="20">
+  </div>
+  <div style="display: flex; gap: 10px;">
+    <fieldset style="flex: 1;">
+      <h2>Buying</h2>
+      <div>
+        Home price: <input type="number" id="homePrice" value="3500000">
+      </div>
+      <div>
+        Deposit (%): <input type="number" id="deposit" value="10">
+      </div>
+      <div>
+        Loan period (years): <input type="number" id="loanPeriod" value="20">
+      </div>
+      <div>
+        Loan interest rate (%): <input type="number" id="interestRate" value="11.75">
+        <small>
+          The prime lending rate in South Africa is 11.75%
+          <a href="https://www.ooba.co.za/resources/prime-lending-rate-south-africa/" target="_blank">[&quot;]</a>
+        </small>
+      </div>
+      <div>
+        Closing costs (%): <input type="number" id="closingCosts" value="8.00">
+      </div>
+      <div>
+        Insurance (%): <input type="number" id="insurance" value="1.00">
+      </div>
+      <div>
+        Maintenance costs (%): <input type="number" id="maintenance" value="1.00">
+      </div>
+      <div>
+        Rates and taxes (%): <input type="number" id="ratesTaxes" value="0.70">
+      </div>
+      <div>
+        Levies (%): <input type="number" id="levies" value="1.25">
+        <small>Sectional title properties tend to have levies of ~1-1.5%, freestanding houses usually do not have such
+          levies</small>
+      </div>
+      <div>
+        Management fees (%): <input type="number" id="managementFees" value="1">
+        <small>
+          This only applies to investment properties where an organisation manages the property on the owner's behalf. Fees tend to be ~0.8-1.25%
+        </small>
+      </div>
+      <div>
+        Property price increase (%): <input type="number" id="propertyIncrease" value="6.00">
+        <small>
+          Cape Town historic home price increase over the past 21 years is ~6%
+          <a href="https://eprop.co.za/commercial-property-news/item/22590-cape-town-s-property-market-booming-or-bubbling"
+            target="_blank">[&quot;]</a>
+        </small>
+      </div>
+    </fieldset>
+
+    <fieldset style="flex: 1;">
+      <h2>Renting</h2>
+      <div>
+        Rent: <input type="number" id="rent" value="17500">
+      </div>
+      <div>
+        Rental increase (%): <input type="number" id="rentalIncrease" value="5">
+        <small>
+          Cape Town historic rental increase over the past 20 years is ~2.8%, but landlords can increase by a maximum of
+          8% per annum
+          <a href="https://safacts.co.za/average-annual-rental-increase-in-south-africa/" target="_blank">[&quot;]</a>
+        </small>
+      </div>
+      <div>
+        Savings interest rate (%): <input type="number" id="savingsInterest" value="9.6">
+        <small>
+          Fixed period savings accounts are currently available with 9.6% interest. S&P 500 index tracker fund returns
+          (on average) >15% in South Africa.
+          <a href="https://www.capitecbank.co.za/personal/save/fixed-term-savings/" target="_blank">[&quot;]</a>
+          <a href="https://satrix.co.za/products/product-details?id=46" target="_blank">[&quot;]</a>
+        </small>
+      </div>
+    </fieldset>
+  </div>
+
+  <h3>Results</h3>
+  <small>Amount of equity owned over time (either home equity or savings amount), as well as the amount spent (either as
+    rent, or as home purchase and associated costs).</small>
+  <canvas id="netWorthChart"></canvas>
+
+  <small>Return on investment over time (home price increase or investment returns) minus costs (either rent or home
+    purchase and associated costs).</small>
+  <canvas id="earningsChart"></canvas>
+
+
+  <script src="script.js"></script>
+</body>
+
+</html>
